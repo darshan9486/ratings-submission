@@ -201,6 +201,12 @@ function App() {
     return undefined;
   };
 
+  // Helper to format PD as percent
+  const formatPercent = (val) => {
+    if (typeof val !== 'number') return '';
+    return (val * 100).toFixed(2) + '%';
+  };
+
   // Scroll to submit button
   const handleScrollToSubmit = () => {
     if (submitRef.current) {
@@ -274,9 +280,9 @@ function App() {
                             <TableRow key={asset.id} sx={{ bgcolor: idx % 2 === 0 ? 'background.default' : '#16213A' }}>
                               <TableCell>{asset.symbol}</TableCell>
                               <TableCell>{consensus}</TableCell>
-                              <TableCell>{asset.consensusMetrics.consensusPd}</TableCell>
+                              <TableCell>{formatPercent(asset.consensusMetrics.consensusPd)}</TableCell>
                               <TableCell>{asset.credoraMetrics.rating}</TableCell>
-                              <TableCell>{asset.credoraMetrics.pd}</TableCell>
+                              <TableCell>{formatPercent(asset.credoraMetrics.pd)}</TableCell>
                               <TableCell>
                                 {asset.credoraMetrics.report ? (
                                   <Link href={asset.credoraMetrics.report} target="_blank" rel="noopener" sx={{ color: 'primary.main', fontWeight: 600 }}>
