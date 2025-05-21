@@ -3,6 +3,7 @@ import {
   Container, Typography, TextField, Button, Box, Paper, CircularProgress, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Link, MenuItem, Select, Snackbar, Alert, IconButton
 } from '@mui/material';
 import RemoveCircleOutlineIcon from '@mui/icons-material/RemoveCircleOutline';
+import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 
 const RATING_OPTIONS = [
@@ -241,6 +242,16 @@ function App() {
                 variant="filled"
                 sx={{ input: { color: 'text.primary' }, bgcolor: 'background.paper', borderRadius: 1 }}
               />
+              <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', my: 1 }}>
+                <Typography variant="body2" sx={{ color: 'primary.main', fontWeight: 600, mb: 0.5 }}>
+                  Click to scroll down and submit
+                </Typography>
+                <ArrowDownwardIcon
+                  onClick={handleScrollToSubmit}
+                  sx={{ cursor: 'pointer', color: 'primary.main', fontSize: 32, transition: 'color 0.2s', '&:hover': { color: 'secondary.main' } }}
+                  aria-label="Scroll to submit"
+                />
+              </Box>
               <Box sx={{ my: 4 }}>
                 <Typography variant="h6" sx={{ color: 'primary.main', mb: 1 }}>Assets</Typography>
                 {loading ? (
