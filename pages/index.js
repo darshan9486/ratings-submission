@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import {
   Container, Typography, TextField, Button, Box, Paper, CircularProgress, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Link, MenuItem, Select, Snackbar, Alert, IconButton
 } from '@mui/material';
@@ -107,6 +107,7 @@ function App() {
   const [selectedRatings, setSelectedRatings] = useState({}); // { assetId: rating }
   const [submitting, setSubmitting] = useState(false);
   const [snackbar, setSnackbar] = useState({ open: false, message: '', severity: 'success' });
+  const submitRef = useRef(null);
 
   useEffect(() => {
     console.log('App useEffect: fetching /api/assets...');
@@ -199,11 +200,23 @@ function App() {
     return undefined;
   };
 
+  // Scroll to submit button
+  const handleScrollToSubmit = () => {
+    if (submitRef.current) {
+      submitRef.current.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+  };
+
   return (
     <ThemeProvider theme={theme}>
       <Box sx={{ minHeight: '100vh', bgcolor: 'background.default', color: 'text.primary', py: 6 }}>
         <Container maxWidth="md">
           <Paper elevation={3} sx={{ p: { xs: 2, sm: 4 }, mb: 4, borderRadius: 4 }}>
+            <Box sx={{ display: 'flex', justifyContent: 'center', mb: 2 }}>
+              <Button variant="outlined" color="primary" onClick={handleScrollToSubmit} sx={{ fontWeight: 600, borderRadius: 2 }}>
+                Scroll down to submit
+              </Button>
+            </Box>
             <Typography variant="h4" gutterBottom align="center" sx={{ mb: 2, color: 'primary.main' }}>
               Asset Ratings Submission
             </Typography>
@@ -298,7 +311,15 @@ function App() {
                   </TableContainer>
                 )}
               </Box>
-              <Button type="submit" variant="contained" color="primary" size="large" disabled={submitting} sx={{ py: 1.5, mt: 2, fontWeight: 700, fontSize: '1.2rem', borderRadius: 2 }}>
+              <Button
+                type="submit"
+                variant="contained"
+                color="primary"
+                size="large"
+                disabled={submitting}
+                sx={{ py: 1.5, mt: 2, fontWeight: 700, fontSize: '1.2rem', borderRadius: 2 }}
+                ref={submitRef}
+              >
                 {submitting ? 'Submitting...' : 'Submit Ratings'}
               </Button>
               <Snackbar
