@@ -15,12 +15,25 @@ const RATING_OPTIONS = [
 const ratingOrder = RATING_OPTIONS;
 const getRatingIndex = (rating) => ratingOrder.indexOf(rating);
 
+// Sort assets by consensus rating (AAA first)
+const sortedAssets = (assets) => {
+  const sorted = [...assets].sort((a, b) => {
+    const aIdx = getRatingIndex(a.consensusMetrics.consensusRating);
+    const bIdx = getRatingIndex(b.consensusMetrics.consensusRating);
+    if (aIdx === -1 && bIdx === -1) return 0;
+    if (aIdx === -1) return 1;
+    if (bIdx === -1) return -1;
+    return aIdx - bIdx;
+  });
+  return sorted;
+};
+
 // Credora-inspired dark theme
 const theme = createTheme({
   palette: {
     mode: 'dark',
     background: {
-      default: '#0A2540',
+      default: '#000000',
       paper: '#1B2A41',
     },
     primary: {
@@ -235,7 +248,7 @@ function App() {
                         </TableRow>
                       </TableHead>
                       <TableBody>
-                        {assets.map((asset, idx) => {
+                        {sortedAssets(assets).map((asset, idx) => {
                           const selected = selectedRatings[asset.id];
                           const consensus = asset.consensusMetrics.consensusRating;
                           return (
