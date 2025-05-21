@@ -213,11 +213,6 @@ function App() {
       <Box sx={{ minHeight: '100vh', bgcolor: 'background.default', color: 'text.primary', py: 6 }}>
         <Container maxWidth="md">
           <Paper elevation={3} sx={{ p: { xs: 2, sm: 4 }, mb: 4, borderRadius: 4 }}>
-            <Box sx={{ display: 'flex', justifyContent: 'center', mb: 2 }}>
-              <Button variant="outlined" color="primary" onClick={handleScrollToSubmit} sx={{ fontWeight: 600, borderRadius: 2 }}>
-                Scroll down to submit
-              </Button>
-            </Box>
             <Typography variant="h4" gutterBottom align="center" sx={{ mb: 2, color: 'primary.main' }}>
               Asset Ratings Submission
             </Typography>
